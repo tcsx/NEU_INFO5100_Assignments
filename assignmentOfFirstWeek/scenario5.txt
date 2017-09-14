@@ -1,0 +1,90 @@
+Design a soft-drink/snacks vending machine
+
+Objects and Behaviors:
+
+    Machine:
+        Data: availableDrinks, notEnoughMoneyMessage
+        Behaviors: takeInCash, readCreditCard, ejectCreditCard, 
+        showCharge, outDrink, giveChange, chargeCreditCard
+
+    Customer:
+        Data: creditcard
+        Behaviors: putInCash, insertCreditCard, takeChange, chooseDrink, 
+        confirmOrderList, takeCreditCard
+
+
+    OrderList:
+        Data: aggregatePrice
+        Behaviors: addDrink
+
+    Drink:
+        Data: name, price
+        Behaviors: 
+
+    Cash:
+        Data: amount
+        Behaviors:
+
+    Change:
+        Data: amount
+        Behaviors: 
+
+    CreditCard:
+        Data: availableCredit
+        Behaviors: pay
+
+
+Example of sequence of invoking behaviors on Objects:
+
+    Machine vendor;
+    Customer bin;
+    OrderList list
+
+    list.aggregatePrice = 0;
+    loop
+        bin.chooseDrink -> availableDrinks : drink;
+        list.addDrink -> drink;
+        list.aggregatePrice = list.aggregatePrice + dink.price;
+        if (bin.confirmOrderList -> list) or (availableDrinks == none)
+            break;
+        end;
+    End;
+    vendor.showCharge;
+    loop
+        if bin.putInCash : cash
+            vendor.takeInCash -> cash;
+            if cash.amount > aggregatePrice
+                vendor.giveChange -> cash.amount - aggregatePrice;
+                bin.takeChange -> cash.amount - aggregatePrice;
+                vendor.outDrink -> list;
+                break;
+            else if cash.amount = aggregatePrice
+                vendor.outDrink -> list;
+                break;
+            else
+                vendor.print -> notEnoughMoneyMessage;
+                vendor.giveChange -> cash.amount;
+                bin.takeChange -> cash.amount;
+            end;
+        else 
+            vendor.print -> notEnoughMoneyMessage;
+        end
+        if bin.insertCreditCard :creditCard
+            vendor.readCreditCard -> creditCard;
+            if creditCard.availableCredit >= aggregatePrice
+                vendor.chargeCreditCard -> creditCard, aggregatePrice;
+                vendor.ejectCreditCard;
+                bin.takeCreditCard;
+                vendor.outDrink -> list;
+                break;
+            else
+                vendor.print -> notEnoughMoneyMessage;
+            end;
+        end;
+    End;
+
+
+        
+
+
+
