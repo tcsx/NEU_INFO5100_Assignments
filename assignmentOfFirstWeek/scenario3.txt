@@ -8,8 +8,12 @@ Customer
 
 Website:
     Data: url, menu, loginFailMessage, paymentFailMessage
-    Behaviors: validate, provideMenu, showPaymentPage, deliverPizza, checkPayment,
-               sendDeliverer;
+    Behaviors: validate, provideMenu, showPaymentPage, deliverPizza, checkPayment, 
+    informCook, sendDeliverer;
+
+Cook:
+    Data: name
+    Behaviors: makePizza
 
 Deliverer:
     Data: name, phoneNum;
@@ -31,16 +35,18 @@ Sequence of invoking behaviors on Objects:
         pizzaHut.validate -> bin.username, bin.password : validation;
         if validation == true
             pizzaHut.provideMenu;
-            bin.selectPizza : selectedPizza;
+            bin.selectPizza : orderedPizza;
             loop
-                pizzaHut.showPaymentPage -> selectedPizza.price;
+                pizzaHut.showPaymentPage -> orderedPizza.price;
                 bin.enterCreditCardInfo -> creditCardInfo;
                 bin.enterAddress -> bin.address;
                 bin.enterPhoneNum -> bin.phoneNum;
                 bin.makePayment;
                 pizzaHut.checkPayment : succeed;
                 if succeed == true
-                    pizzaHut.sendDeliverer -> bin.address, bin.phoneNum : deliverer;
+                    pizzaHut.informCook -> orderedPizza : cook;
+                    cook.makePizza : orderedPizza;
+                    pizzaHut.sendDeliverer -> orderedPizza, bin.address, bin.phoneNum : deliverer;
                     deliverer.deliverPizza -> bin.address, bin.phoneNum;
                     bin.receivePizza;
                     break;
