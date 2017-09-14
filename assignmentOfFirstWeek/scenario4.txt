@@ -1,0 +1,53 @@
+Design a code sharing platform
+
+Objects and Behaviors:
+
+    Website:
+        Data: url
+        Behaviors: authorizeLogin, storeCodeInDataBase, sendCodeUrlTo, deleteStoredCode
+        
+
+    Administrator:
+        Data: name
+        Behaviors: enlargeDatebaseCapacity
+
+    Database:
+        Data: capacity, dataSize
+        Behaviors: storeCode, informAdmin
+
+    StoredCode:
+        Data: url
+        Behaviors: changeUrl
+
+    User:
+        Data: username, password
+        Behaviors: goToWebsit, login, uploadCode, shareCodeByUrl, deleteCode, postUrl, selectUsers, shareCodeToOtherUsers, cancelSharing
+
+
+Example of sequence of invoking behaviors on Objects:
+
+    Website github;
+    Database db;
+    User bin;
+    Administrator siva;
+
+    bin.goToWebsit -> github.url;
+    bin.login -> bin.username, bin.password;
+    bin.uploadCode : code;
+    github.storeCodeInDataBase -> db, code : storedCode;
+    if db.dataSize reaches 90% of db.capacity
+        github.informAdmin -> siva;
+        siva.enlargeDatebaseCapacity;
+    end
+    bin.shareCodeByUrl -> storedCode : storedCode.url;
+    bin.postUrl -> storedCode.url, whateverWebsite;
+
+    bin.selectUsers : otherusers;
+    bin.shareCodeToOtherUsers -> storedCode, otherusers;
+        github.sendCodeUrlTo -> storedCode.url, otherusers;
+    bin.cancelSharing -> storeCode;
+        storeCode.changeUrl;
+
+
+
+
