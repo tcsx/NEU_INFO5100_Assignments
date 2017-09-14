@@ -1,0 +1,75 @@
+Career Fair
+
+Objects and Behaviors:
+
+Organizer:
+    Data: name
+    Behaviors: putContentOnWebsite, giveDirectionsToJobseekers, answerQuestion,
+               giveInfoToCompanies, arrangeSpaceForCompanies, arrangeStaff, 
+               filterCompanies, holdCareerFair
+
+Staff:
+    Data: name, task
+    Behaviors: performTasks
+
+RegistrationPage:
+    Data: url, tryLimit
+    Behaviors: validateIdentity, comfirmRegistration, print
+
+CareerFair:
+    Data: location, time, introduction
+    Behaviors: 
+
+JobSeekers:
+    Data: name, username, password
+    Behaviors: hasQuestion, askQuestion, goToWebsite, login, register;
+
+Company:
+    Data: name, positionsAvailable
+    Behaviors:
+
+Sequence of invoking behaviors on Objects:
+
+    Organizer bin;
+    RegistrationPage regPage;
+    JobSeekers jobSeekers;
+    CareerFair careerFair;
+
+
+    bin.filterCompanies : eligibleCompanies;
+    bin.giveInfoToCompanies -> eligibleCompanies, careerFair.location, careerFair.time, careerFair.introduction;
+    bin.putContentOnWebsite -> careerFair.location, careerFair.time, 
+    careerFair.introduction, regPage;
+    bin.giveDirectionsToJobseekers -> careerFair.location, careerFair.time, 
+    careerFair.introduction, regPage.url;
+    while jobSeekers.hasQuestion
+        jobSeekers.askQuestion -> questions;
+        bin.answerQuestion -> questions : answer;
+    End;
+    jobSeekers.goToWebsite -> regPage.url;
+    tryTime = 0;
+    loop
+        jobSeekers.login -> jobSeekers.username, jobSeekers.password;
+        tryTime = tryTime + 1;
+        regPage.validateIdentity -> jobSeekers.username, jobSeekers.password : 
+        validation;
+        if validation == true
+            jobSeekers.register;
+            regPage.comfirmRegistration;
+            break;
+        else
+            if tryTime > tryLimit
+                regPage.print -> "Sorry, we are unable to validate your identity."; 
+                break;
+            else
+                regPage.print -> "Sorry, your username or password is incorrect,
+                please try again.";
+            end;
+        end;
+    End;
+    bin.arrangeSpaceForCompanies -> eligibleCompanies;
+    bin.arrangeStaff;
+    if it reaches careerFair.time
+        bin.holdCareerFair -> careerFair;
+    end;
+
