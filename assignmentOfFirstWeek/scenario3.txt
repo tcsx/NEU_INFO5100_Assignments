@@ -1,0 +1,54 @@
+Order Pizza from Pizza Hut
+
+Objects and Behaviors:
+
+Customer
+    Data: name, username, password, address, phoneNum, creditCardInfo
+    Behaviors: goToWebsite, login, selectPizza, enterCreditCardInfo, enterAddress, enterPhoneNum, makePayment, receivePizza
+
+Website:
+    Data: url, menu, loginFailMessage, paymentFailMessage
+    Behaviors: validate, provideMenu, showPaymentPage, deliverPizza, checkPayment,
+               sendDeliverer;
+
+Deliverer:
+    Data: name, phoneNum;
+    Behaviors: deliverPizza
+    
+Pizza:
+    Data: price
+    Behaviors:
+
+Sequence of invoking behaviors on Objects:
+
+    Customer bin;
+    Website pizzaHut;
+    
+
+    bin.goToWebsite -> pizzaHut.url;
+    loop
+        bin.login;
+        pizzaHut.validate -> bin.username, bin.password : validation;
+        if validation == true
+            pizzaHut.provideMenu;
+            bin.selectPizza : selectedPizza;
+            loop
+                pizzaHut.showPaymentPage -> selectedPizza.price;
+                bin.enterCreditCardInfo -> creditCardInfo;
+                bin.enterAddress -> bin.address;
+                bin.enterPhoneNum -> bin.phoneNum;
+                bin.makePayment;
+                pizzaHut.checkPayment : succeed;
+                if succeed == true
+                    pizzaHut.sendDeliverer -> bin.address, bin.phoneNum : deliverer;
+                    deliverer.deliverPizza -> bin.address, bin.phoneNum;
+                    bin.receivePizza;
+                    break;
+                else
+                    pizzaHut.print -> paymentFailMessage;
+                end
+            End
+        else
+            pizzaHut.print -> loginFailMessage;
+        end
+    End        
