@@ -1,0 +1,133 @@
+Hiking
+
+Objects and Behaviors:
+
+Hiker:
+    Data: name
+    Behaviors：openReachNowApp, selectRental, rentSelectedRental, getRental, Drive, fillGas, pay, selectDish, endSelect, eat, findAnotherRestaurant, buyTicket, checkInHotel 
+
+ReachNowApp:
+    Data: availableRentals
+    Behaviors：charge
+
+Rental:
+    Data: gasVolume, price
+
+GasStation:
+    Data: location
+    Behaviors：charge
+Gas:
+    Data: price;
+
+Restaurant:
+    Data: location, menu
+    Behaviors：provideMenu, serveDishes, charge 
+
+Dish:
+    Data: price
+
+OrderList:
+    Data: sum;
+    Behaviors：addDish
+
+TicketOffice
+    Data: location，phoneNumber, ticketsAvailable
+
+Hotel:
+    Data: location, spareRooms
+    Behaviors：accomodate
+
+Sequence of invoking behaviors on Objects:
+
+Hiker bin;
+ReachNowApp reachNow;
+Rental selectedRental;
+GasStation station;
+Gas gas;
+Restaurant subway;
+TicketOffice tktofc;
+Hotel hilton;
+Dish dish;
+OrderList odLst;
+
+bin.openReachNowApp -> reachNow;
+bin.selectRental -> reachNow.availableRentals : selectedRental;
+bin.rentSelectedRental -> selectedRental;
+reachNow.charge -> selectedRental : selectedRental.price;
+loop
+    bin.pay -> selectedRental.price : paymentConfirmation;
+    if paymentConfirmation == true
+        break;
+    end;
+End;
+bin.getRental -> selectedRental;
+loop
+    bin.drive -> selectedRental : currentLocation;
+    if currentLocation == station.location
+        break;
+    end;
+End;
+loop
+    bin.fillGas : selectedRental.gasVolume;
+    if selectedRental.gasVolume == 100%
+        break;
+    end;
+End;
+station.charge -> selectedRental.gasVolume, gas.price : chargeAmount;
+loop
+    bin.pay -> chargeAmount : paymentConfirmation;
+    if paymentConfirmation == true
+        break;
+    end;
+End;
+loop
+    bin.drive -> selectedRental : currentLocation;
+    if currentLocation == subway.location
+        if subway.open == true
+            break;
+        else
+            bin.findAnotherRestaurant : subway;
+        end;
+    end;
+End;
+subway.provideMenu : subway.menu;
+odLst.sum = 0;
+loop
+    bin.selectDish : dish;
+    odLst.addDish -> dish;
+    odLst.sum = odLst.sum + dish.price;
+    if bin.endSelect
+        break;
+    end;
+End;
+bin.eat;
+subway.charge -> odLst.sum;
+loop
+    bin.pay -> odLst.sum : paymentConfirmation;
+    if paymentConfirmation == true
+        break;
+    end;
+End;
+loop
+    bin.drive -> selectedRental : currentLocation;
+    if currentLocation == tktofc.location
+        break;
+    end;
+End;
+if tktofc.ticketsAvailable == true
+    bin.buyTicket;
+end;
+loop
+    bin.drive -> selectedRental : currentLocation;
+    if currentLocation == hilton.location
+        break;
+    end;
+End;
+bin.checkInHotel;
+hilton.accomodate -> bin;
+
+
+
+
+
+
