@@ -3,7 +3,7 @@ Design a soft-drink/snacks vending machine
 Objects and Behaviors:
 
     Machine:
-        Data: availableDrinks&snacks, notEnoughMoneyMessage, transactions
+        Data: availableDrinks&Snacks, notEnoughMoneyMessage, transactions
         Behaviors: takeInCash, readCreditCard, ejectCreditCard, 
         showCharge, outDrink, giveChange, chargeCreditCard
 
