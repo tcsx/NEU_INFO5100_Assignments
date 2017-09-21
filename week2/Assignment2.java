@@ -2,6 +2,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Assignment2 {
+    /**
+     * Task1.
+     */
     public double employeeSalary(double hours) {
         if (hours <= 36) {
             return hours * 15;
@@ -14,6 +17,9 @@ public class Assignment2 {
         }
     }
 
+    /**
+     * Task2.
+     */
     public int addDigits(int input) {
         if (input >= 0) {
             int digit = input % 10;
@@ -26,6 +32,9 @@ public class Assignment2 {
         }
     }
 
+    /**
+     * Task3.
+     */
     public void printPerfectNumbers(int n) {
         for (int i = 2; i <= n; i++) {
             int sum = 1;
@@ -41,6 +50,9 @@ public class Assignment2 {
         }
     }
 
+    /**
+     * Task6.(Task 4 & 5 are behind this method)
+     */
     public void printIsoscelesTriangle(int n) {
         if (n < 2) {
             System.out.println("Please give a number larger than 1.");
@@ -60,6 +72,9 @@ public class Assignment2 {
         System.out.println('*');
     }
 
+    /**
+     * Task4.
+     */
     public static class Pizza {
         String pizzaType;
         Double unitPrice;
@@ -78,15 +93,19 @@ public class Assignment2 {
         }
     }
 
+    /**
+     * Task5.
+     */
     public static class Customer {
         String name;
         List<Pizza> order;
-
         /* Answer to 5.ii.: I will just put pizza name(as pizza type) and 
         number into the Pizza class since these features are closely related 
         to Pizza itself. Besides, put them in the same class enables me to 
-        access them conveniently and precisely.
+        access them conveniently and precisely. Then put different pizza 
+        instances into a List because List is resizable and easy to iterate.
         */
+
         public Customer(String name) {
             this.name = name;
         }
