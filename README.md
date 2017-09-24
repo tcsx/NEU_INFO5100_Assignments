@@ -1,2 +1,2 @@
-# neu-sep17-info5100
-Assignments of Info 5100.
+# NEU_INFO5100_Assignments
+Assignments of INFO5100.
