@@ -133,7 +133,6 @@ class Paper extends Tool {
 class Rock extends Tool {
     public Rock(int strength) {
         setStrength(strength);
-        ;
         type = 'r';
     }
 
