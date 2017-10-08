@@ -88,7 +88,7 @@ public class Assignment4 {
 /**
  * Question 2
  */
-class Tool {
+abstract class Tool {
 
     protected int strength;
     protected char type;
@@ -96,6 +96,8 @@ class Tool {
     public void setStrength(int strength) {
         this.strength = strength;
     }
+
+    public abstract boolean fight(Tool t);
 }
 
 class Scissors extends Tool {
