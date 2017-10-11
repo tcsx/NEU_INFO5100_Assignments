@@ -88,8 +88,8 @@ public class Hangman {
     public void gameOver() {
         cls();
         displayWord();
-        printHangman();
         displayGuessedAndRemain();
+        printHangman();
         System.out.println("Game over!");
         System.exit(0);
     }
@@ -145,6 +145,7 @@ public class Hangman {
         System.out.println("Welcome to the hangman game!");
         System.out.println("");
         displayWord();
+        displayGuessedAndRemain();
         printHangman();
         guessSentence();
     }
@@ -183,7 +184,7 @@ public class Hangman {
     public void displayGuessedAndRemain() {
         System.out.println("Correct letters guessed: " + correctList);
         System.out.println("Incorrect letters guessed: " + wrongList);
-        System.out.println("Remaining Guessed: " + (8 - incorrectGuesses));
+        System.out.println("Remaining Guesses: " + (8 - incorrectGuesses));
     }
 
     /**
@@ -222,13 +223,12 @@ public class Hangman {
                 game.handleGuess(letter);
                 cls();
                 game.displayWord();
+                game.displayGuessedAndRemain();
+                game.printHangman();
                 if (game.gameWon()) {
-                    game.printHangman();
                     System.out.println("You win!");
                     return;
                 }
-                game.displayGuessedAndRemain();
-                game.printHangman();
                 game.guessSentence();
             }
         }
