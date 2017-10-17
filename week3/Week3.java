@@ -1,3 +1,4 @@
+Score: 10
 import java.util.Arrays;
 
 /**
