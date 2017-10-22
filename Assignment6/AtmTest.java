@@ -4,12 +4,23 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Scanner;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.validator.PublicClassValidator;
 
-import sun.net.www.content.text.plain;
 
 public class AtmTest {
+	private static Scanner sc;
+
+	@BeforeClass
+	public static void initiate(){
+		sc = new Scanner(System.in);
+	}
+
+	@AfterClass
+	public static void close(){
+		sc.close();
+	}
 
 	@Test
 	@SuppressWarnings("all")
@@ -61,7 +72,6 @@ public class AtmTest {
 	@Test
 	public void testAskIfNew() {
 		Atm atm = new Atm(100000000, 5);
-		Scanner sc = new Scanner(System.in);
 		assertTrue(atm.askIfNew(sc));
 	}
 
@@ -74,7 +84,6 @@ public class AtmTest {
 	@Test
 	public void testCreateNewAccount() {
 		Atm atm = new Atm(100000000, 5);
-		Scanner sc = new Scanner(System.in);
 		String num = atm.createNewAccount(sc);
 		assertEquals("correct", atm.getPassword(num));
 	}
@@ -82,7 +91,6 @@ public class AtmTest {
 	@Test
 	public void testChangePassword() {
 		Atm atm = new Atm(100000000, 5);
-		Scanner sc = new Scanner(System.in);
 		atm.changePassword(sc, "1111111111");
 		assertEquals("changed", atm.getPassword("1111111111"));
 	}
@@ -90,7 +98,6 @@ public class AtmTest {
 	@Test
 	public void testResetPassword() {
 		Atm atm = new Atm(100000000, 5);
-		Scanner sc = new Scanner(System.in);
 		String accountNum = "1111111112";
 		atm.resetPassword(sc, accountNum);
 		assertEquals("reset", atm.getPassword(accountNum));
@@ -99,7 +106,6 @@ public class AtmTest {
 	@Test
 	public void testValidate() {
 		Atm atm = new Atm(100000000, 5);
-		Scanner sc = new Scanner(System.in);
 		String accountNum = atm.validate(sc);
 		assertEquals("1111111112", accountNum);
 		assertEquals("reset2", atm.getPassword(accountNum));
@@ -108,7 +114,6 @@ public class AtmTest {
 	@Test
 	public void testLogin() {
 		Atm atm = new Atm(100000000, 5);
-		Scanner sc = new Scanner(System.in);
 		String accountNum = atm.login(sc);
 		assertEquals("1111111112", accountNum);
 		assertEquals("reset3", atm.getPassword(accountNum));
@@ -142,7 +147,6 @@ public class AtmTest {
 	@Test
 	public void testDeposit() {
 		Atm atm = new Atm(100000000, 5);
-		Scanner sc = new Scanner(System.in);
 		String accountNum = "1111111111";
 		double balance = atm.getAvailableBalance(accountNum);
 		atm.deposit(sc, accountNum);
@@ -153,7 +157,6 @@ public class AtmTest {
 	@Test
 	public void testWithDrawal() {
 		Atm atm = new Atm(100000000, 5);
-		Scanner sc = new Scanner(System.in);
 		String accountNum = "1111111111";
 		double balance = atm.getAvailableBalance(accountNum);
 		atm.withDrawal(sc, accountNum);
