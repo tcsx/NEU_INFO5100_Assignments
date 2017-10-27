@@ -164,7 +164,6 @@ class Solution {
                 path.add(c);
             return path;
         }
-        maze[x][y] = 0;
         if (y < n - 1 && maze[x][y + 1] != 0) {
             ArrayList<Cell> nextPath = findPath(maze, new Cell(x, y + 1));
             if (!nextPath.isEmpty()) {
@@ -174,20 +173,6 @@ class Solution {
         }
         if (path.isEmpty() && x < n - 1 && maze[x + 1][y] != 0) {
             ArrayList<Cell> nextPath = findPath(maze, new Cell(x + 1, y));
-            if (!nextPath.isEmpty()) {
-                path.add(c);
-                path.addAll(nextPath);
-            }
-        }
-        if (path.isEmpty() && y > 0 && maze[x][y - 1] != 0) {
-            ArrayList<Cell> nextPath = findPath(maze, new Cell(x, y - 1));
-            if (!nextPath.isEmpty()) {
-                path.add(c);
-                path.addAll(nextPath);
-            }
-        }
-        if (path.isEmpty() && x > 0 && maze[x - 1][y] != 0) {
-            ArrayList<Cell> nextPath = findPath(maze, new Cell(x - 1, y));
             if (!nextPath.isEmpty()) {
                 path.add(c);
                 path.addAll(nextPath);
