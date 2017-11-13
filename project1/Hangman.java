@@ -213,6 +213,7 @@ public class Hangman {
         while ((letter = reader.readLine().trim()) != null) {
             if (!letter.isEmpty()) {
                 if (letter.length() != 1) {
+                    // Maybe you should add another method including line 217 to 220, thoses are also called in line 225-228
                     cls();
                     game.displayWord();
                     game.displayGuessedAndRemain();
