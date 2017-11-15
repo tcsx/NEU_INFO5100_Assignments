@@ -43,4 +43,4 @@ public class SpiralMatrix {
         System.out.println(sm.spiralOrder(new int[][] { { 1, 2, 3 }, { 5, 6, 7 }, { 9, 10, 11 } }));
         System.out.println(sm.spiralOrder(new int[][] { { 1, 2, 3 }, { 6, 7, 8 }, { 10, 11, 12 }, { 14, 15, 16 } }));
     }
-}
+} 
