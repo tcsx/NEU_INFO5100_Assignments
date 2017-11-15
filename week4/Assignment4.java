@@ -11,6 +11,7 @@ public class Assignment4 {
                 newC[l] = '-';
                 l--;
             }
+            // Try to avoid hard code
             if (c[i] > 97 && c[i] < 122) {
                 c[i] = (char) ((int) c[i] - 32);
             }
