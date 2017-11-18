@@ -17,5 +17,6 @@ public class FileAnalyzer
       System.out.println("Characters: " + counter.getCharacterCount());
       System.out.println("Words: " + counter.getWordCount());
       System.out.println("Lines : " + counter.getLineCount());
+      in.close();
    }
 }
