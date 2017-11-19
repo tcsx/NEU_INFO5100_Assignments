@@ -22,7 +22,7 @@ public class FileCounter{
             try {
                 while ((line = in.nextLine()) != null) {
                     lineCount++;
-                    String[] temp = line.split("\\s+");
+                    String[] temp = line.trim().split("\\s+");
                     wordCount += temp.length;
                     for (String s : temp) {
                         characterCount += s.length();
